@@ -23,12 +23,12 @@ extension GlucoseDirectManager: CGMManagerUI {
         return UIImage(named: "glucose-direct", in: FrameworkBundle.own, compatibleWith: nil)!
     }
 
-    public static func setupViewController(bluetoothProvider: BluetoothProvider, displayGlucoseUnitObservable: DisplayGlucoseUnitObservable, colorPalette: LoopUIColorPalette, allowDebugFeatures: Bool) -> SetupUIResult<CGMManagerViewController, CGMManagerUI> {
+    public static func setupViewController(bluetoothProvider: BluetoothProvider, displayGlucosePreference: DisplayGlucosePreference, colorPalette: LoopUIColorPalette, allowDebugFeatures: Bool, prefersToSkipUserInteraction: Bool) -> SetupUIResult<CGMManagerViewController, CGMManagerUI> {
         return .createdAndOnboarded(GlucoseDirectManager())
     }
 
-    public func settingsViewController(bluetoothProvider: BluetoothProvider, displayGlucoseUnitObservable: DisplayGlucoseUnitObservable, colorPalette: LoopUIColorPalette, allowDebugFeatures: Bool) -> CGMManagerViewController {
-        let settings = GlucoseDirectSettingsViewController(cgmManager: self, displayGlucoseUnitObservable: displayGlucoseUnitObservable)
+    public func settingsViewController(bluetoothProvider: BluetoothProvider, displayGlucosePreference: DisplayGlucosePreference, colorPalette: LoopUIColorPalette, allowDebugFeatures: Bool) -> CGMManagerViewController {
+        let settings = GlucoseDirectSettingsViewController(cgmManager: self, displayGlucosePreference: displayGlucosePreference)
         let nav = CGMManagerSettingsNavigationViewController(rootViewController: settings)
 
         return nav
