@@ -14,9 +14,9 @@ import LoopKitUI
 public class GlucoseDirectSettingsViewController: UITableViewController {
     // MARK: Lifecycle
 
-    init(cgmManager: GlucoseDirectManager, displayGlucoseUnitObservable: DisplayGlucoseUnitObservable) {
+    init(cgmManager: GlucoseDirectManager, displayGlucosePreference: DisplayGlucosePreference) {
         self.cgmManager = cgmManager
-        self.glucoseUnit = displayGlucoseUnitObservable
+        self.glucoseUnit = displayGlucosePreference
 
         super.init(style: .grouped)
         title = LocalizedString("CGM Settings")
@@ -112,7 +112,7 @@ public class GlucoseDirectSettingsViewController: UITableViewController {
                 case .glucose:
                     let cell = tableView.dequeueReusableCell(withIdentifier: "value", for: indexPath) as! ValueStyleCell
                     cell.textLabel?.text = LocalizedString("Glucose")
-                    cell.detailTextLabel?.text = quantityFormatter.string(from: latestGlucoseSample.quantity, for: glucoseUnit.displayGlucoseUnit)
+                    cell.detailTextLabel?.text = quantityFormatter.string(from: latestGlucoseSample.quantity, includeUnit: true)
 
                     return cell
                 case .trend:
@@ -196,7 +196,7 @@ public class GlucoseDirectSettingsViewController: UITableViewController {
 
     // MARK: Internal
 
-    let glucoseUnit: DisplayGlucoseUnitObservable
+    let glucoseUnit: DisplayGlucosePreference
     let cgmManager: GlucoseDirectManager
 
     @objc func doneTapped(_ sender: Any) {
@@ -241,7 +241,7 @@ public class GlucoseDirectSettingsViewController: UITableViewController {
     private var appLogo: UIImage? = UIImage(named: "glucose-direct", in: FrameworkBundle.own, compatibleWith: nil)!.imageWithInsets(insets: UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0))
 
     private var quantityFormatter: QuantityFormatter {
-        return QuantityFormatter()
+        return QuantityFormatter(for: .internationalUnit())
     }
 
     private var dateFormatter: DateFormatter {
