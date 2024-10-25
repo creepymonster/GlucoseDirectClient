@@ -22,7 +22,7 @@ public class GlucoseDirectManager: CGMManager {
 
     public required convenience init?(rawState: CGMManager.RawStateValue) {
         self.init()
-        shouldSyncToRemoteService = rawState[Config.shouldSyncKey] as? Bool ?? false
+        // shouldSyncToRemoteService = rawState[Config.shouldSyncKey] as? Bool ?? true
     }
 
     // MARK: Public
@@ -35,7 +35,7 @@ public class GlucoseDirectManager: CGMManager {
     public let providesBLEHeartbeat = false
 
     public var managedDataInterval: TimeInterval?
-    public var shouldSyncToRemoteService = false
+    public var shouldSyncToRemoteService = true
     public private(set) var latestGlucose: ClientGlucose?
     public private(set) var latestGlucoseSample: NewGlucoseSample?
 
